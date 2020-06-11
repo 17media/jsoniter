@@ -118,6 +118,11 @@ func (encoder *structFieldEncoder) IsEmpty(ptr unsafe.Pointer) bool {
 	return encoder.fieldEncoder.IsEmpty(fieldPtr)
 }
 
+func (encoder *structFieldEncoder) IsOmitByValue(ptr unsafe.Pointer) bool {
+	fieldPtr := encoder.field.UnsafeGet(ptr)
+	return encoder.fieldEncoder.(OmitByValueEncoder).IsOmitByValue(fieldPtr)
+}
+
 func (encoder *structFieldEncoder) IsEmbeddedPtrNil(ptr unsafe.Pointer) bool {
 	isEmbeddedPtrNil, converted := encoder.fieldEncoder.(IsEmbeddedPtrNil)
 	if !converted {
@@ -152,9 +157,9 @@ func (encoder *structEncoder) Encode(ptr unsafe.Pointer, stream *Stream) {
 			continue
 		}
 
-		omitByValueEncoder, shouldOmitByValue := field.encoder.fieldEncoder.(OmitByValueEncoder)
+		_, shouldOmitByValue := field.encoder.fieldEncoder.(OmitByValueEncoder)
 		if shouldOmitByValue {
-			if omitByValueEncoder.IsOmitByValue(ptr) {
+			if field.encoder.IsEmpty(ptr) {
 				continue
 			}
 		}
