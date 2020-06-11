@@ -159,7 +159,7 @@ func (encoder *structEncoder) Encode(ptr unsafe.Pointer, stream *Stream) {
 
 		_, shouldOmitByValue := field.encoder.fieldEncoder.(OmitByValueEncoder)
 		if shouldOmitByValue {
-			if field.encoder.IsEmpty(ptr) {
+			if field.encoder.IsOmitByValue(ptr) {
 				continue
 			}
 		}
