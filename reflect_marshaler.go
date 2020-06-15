@@ -29,6 +29,10 @@ func createDecoderOfMarshaler(ctx *ctx, typ reflect2.Type) ValDecoder {
 }
 
 func createEncoderOfMarshaler(ctx *ctx, typ reflect2.Type) ValEncoder {
+	if ctx.frozenConfig.ignoreMarshalJSON {
+		return nil
+	}
+
 	if typ == marshalerType {
 		checkIsEmpty := createCheckIsEmpty(ctx, typ)
 		var encoder ValEncoder = &directMarshalerEncoder{

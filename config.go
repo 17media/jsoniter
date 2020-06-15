@@ -72,6 +72,7 @@ type frozenConfig struct {
 	objectFieldMustBeSimpleString bool
 	onlyTaggedField               bool
 	disallowUnknownFields         bool
+	ignoreMarshalJSON             bool
 	decoderCache                  *concurrent.Map
 	encoderCache                  *concurrent.Map
 	encoderExtension              Extension
