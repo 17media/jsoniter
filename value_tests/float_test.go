@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/json-iterator/go"
+	"github.com/17media/jsoniter"
 	"github.com/stretchr/testify/require"
 	"strconv"
 	"testing"
