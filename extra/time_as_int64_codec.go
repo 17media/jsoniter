@@ -1,7 +1,7 @@
 package extra
 
 import (
-	"github.com/json-iterator/go"
+	"github.com/17media/jsoniter"
 	"time"
 	"unsafe"
 )
